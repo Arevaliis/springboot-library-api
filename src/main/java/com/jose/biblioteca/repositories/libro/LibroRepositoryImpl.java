@@ -9,10 +9,10 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import com.jose.biblioteca.model.libro.Libro;
-import com.jose.biblioteca.repositories.RepositorioGenerico;
+import com.jose.biblioteca.repositories.IRepositoryProductos;
 
 @Repository
-public class LibroRepositoryImpl implements RepositorioGenerico<Libro> {
+public class LibroRepositoryImpl implements IRepositoryProductos<Libro> {
 
     private List<Libro> libros;
 
