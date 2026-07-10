@@ -1,4 +1,4 @@
-package com.jose.biblioteca.model;
+package com.jose.biblioteca.model.libro;
 
 public class Libro {
     private Long id;
@@ -48,6 +48,18 @@ public class Libro {
             return false;
         return true;
     }
+
+    @Override
+    public Libro clone(){
+        try{
+            return (Libro) super.clone();
+        } catch(CloneNotSupportedException e){
+            throw new RuntimeException(e);
+        }
+        
+    }
+
+    
 
     @Override
     public String toString() {
