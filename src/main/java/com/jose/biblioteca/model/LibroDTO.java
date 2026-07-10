@@ -1,5 +1,3 @@
 package com.jose.biblioteca.model;
 
-public class LibroDTO {
-    
-}
+public record LibroDTO( String titulo, String autor, int paginas) {}
