@@ -1,6 +1,6 @@
 package com.jose.biblioteca.model.libro;
 
-public class Libro {
+public class Libro implements Cloneable{
     private Long id;
     private String titulo;
     private String autor;
@@ -23,6 +23,10 @@ public class Libro {
     public void setTitulo(String titulo) { this.titulo = titulo; }
     public void setAutor(String autor) { this.autor = autor; }
     public void setPaginas(int paginas) { this.paginas = paginas; }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     @Override
     public int hashCode() {
@@ -56,7 +60,6 @@ public class Libro {
         } catch(CloneNotSupportedException e){
             throw new RuntimeException(e);
         }
-        
     }
 
     @Override

@@ -27,36 +27,37 @@ public class LibroRepositoryImpl implements IRepositoryProductos<Libro> {
                 new Libro(7L, "El nombre del viento", "Patrick Rothfuss", 872),
                 new Libro(8L, "Fahrenheit 451", "Ray Bradbury", 249),
                 new Libro(9L, "Crónica de una muerte anunciada", "Gabriel García Márquez", 122),
-                new Libro(10L, "Rebelión en la granja", "George Orwell", 144)
-            )
-        );
+                new Libro(10L, "Rebelión en la granja", "George Orwell", 144)));
     }
 
     @Override
     public List<Libro> findAll() {
         return libros.stream()
-                        .map(Libro::clone)
-                        .sorted(Comparator.comparing(Libro::getId))
-                        .toList();
+                .map(Libro::clone)
+                .sorted(Comparator.comparing(Libro::getId))
+                .toList();
     }
 
     @Override
     public Optional<Libro> findById(Long id) {
         return libros.stream()
-                     .filter(l -> l.getId().equals(id))
-                     .map(Libro::clone)
-                     .findFirst();
+                .filter(l -> l.getId().equals(id))
+                .map(Libro::clone)
+                .findFirst();
     }
 
     @Override
     public Libro save(Libro libro) {
+        Long id = libros.get(libros.size() - 1).getId() + 1L;
+        libro.setId(id);
+
         libros.add(libro);
         return libro.clone();
     }
 
     @Override
-public Optional<Libro> update(Libro libro) {
-    return libros.stream()
+    public Optional<Libro> update(Libro libro) {
+        return libros.stream()
                 .filter(l -> l.getId().equals(libro.getId()))
                 .findFirst()
                 .map(l -> {
@@ -66,13 +67,12 @@ public Optional<Libro> update(Libro libro) {
                     l.setPaginas(libro.getPaginas());
 
                     return l.clone();
-                }
-            );
-}
+                });
+    }
 
     @Override
     public boolean deleteById(Long id) {
-        return libros.removeIf( l -> l.getId().equals(id));
+        return libros.removeIf(l -> l.getId().equals(id));
     }
 
 }
