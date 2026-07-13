@@ -3,6 +3,7 @@ package com.jose.biblioteca.controller.libro;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jose.biblioteca.exception.LibroNotFoundException;
 import com.jose.biblioteca.model.RespuestaApi;
 import com.jose.biblioteca.model.libro.LibroDTO;
 import com.jose.biblioteca.model.libro.MensajeDTO;
@@ -30,30 +31,33 @@ public class LibroController {
 
     @GetMapping("libros")
     public ResponseEntity<RespuestaApi<List<LibroDTO>>> findAll() {
+        List<LibroDTO> libros;
 
-        List<LibroDTO> libros = service.findAll();
+        try {
 
-        if (libros.isEmpty()) {
+            libros = service.findAll();
+
             return ResponseEntity.ok(
-                    new RespuestaApi<>(false, "No existen libros", null));
-        }
+                    new RespuestaApi<>(true, "Libro Encontrado", libros));
 
-        return ResponseEntity.ok(
-                new RespuestaApi<>(true, "Libros encontrados", libros));
+        } catch (LibroNotFoundException e) {
+            return ResponseEntity.ok(
+                new RespuestaApi<>(false, e.getMessage(), null));
+        }
     }
 
     @GetMapping("libros/{id}")
     public ResponseEntity<RespuestaApi<LibroDTO>> findById(@PathVariable Long id) {
 
-        LibroDTO libroDTO = service.findById(id);
-
-        if (libroDTO == null) {
+        try {
+            LibroDTO libroDTO = service.findById(id);
             return ResponseEntity.ok(
-                    new RespuestaApi<>(false, "No existe el libro", null));
-        }
+                    new RespuestaApi<>(true, "Libro Encontrado", libroDTO));
 
-        return ResponseEntity.ok(
-                new RespuestaApi<>(true, "Libro encontrado", libroDTO));
+        } catch (LibroNotFoundException e) {
+            return ResponseEntity.ok(
+                new RespuestaApi<>(false, e.getMessage(), null));
+        }           
     }
 
     @PostMapping("libros")

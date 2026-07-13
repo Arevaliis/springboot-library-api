@@ -1,7 +1,6 @@
 package com.jose.biblioteca.service.libro;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -22,17 +21,18 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
 
     @Override
     public List<LibroDTO> findAll() {
-        return repository.findAll().orElseThrow(() -> new LibroNotFoundException())
-                                    .stream()
-                                    .map(l -> {
-                                        return new LibroDTO( 
-                                            l.getTitulo(),
-                                            l.getAutor(),
-                                            l.getPaginas()
-                                            );
-                                        }
-                                ).toList();
-    }
+        List<Libro> libros = repository.findAll().orElseThrow(LibroNotFoundException::new);
+
+        if (libros.isEmpty()) { throw new LibroNotFoundException(); }
+
+        return libros.stream()
+                     .map(l -> 
+                        new LibroDTO(
+                            l.getTitulo(),
+                            l.getAutor(),
+                            l.getPaginas()))
+                     .toList();
+        }
 
     @Override
     public LibroDTO findById(Long id) {
