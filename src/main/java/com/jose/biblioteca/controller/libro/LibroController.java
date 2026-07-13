@@ -3,12 +3,12 @@ package com.jose.biblioteca.controller.libro;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jose.biblioteca.model.libro.Libro;
 import com.jose.biblioteca.model.libro.LibroDTO;
 import com.jose.biblioteca.model.libro.MensajeDTO;
 import com.jose.biblioteca.service.IServiceProductos;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,6 +32,7 @@ public class LibroController {
     public ResponseEntity<List<LibroDTO>> findAll() {
 
         List<LibroDTO> libros = service.findAll();
+        
         return (libros.isEmpty()) ? ResponseEntity.noContent().build() : ResponseEntity.ok(libros);
     }
 
@@ -40,18 +41,17 @@ public class LibroController {
 
          return service.findById(id)
                         .map(ResponseEntity::ok)
-                        .orElse(ResponseEntity.notFound().build());
+                        .orElse(ResponseEntity.notFound().header("mensaje", "No existe el libro con id " + id).build());
     }
 
-    @PostMapping("libro")
-    public LibroDTO postMethodName(@RequestBody LibroDTO entity) {
-        return service.save(entity);
+    @PostMapping("libros")
+    public LibroDTO save(@RequestBody LibroDTO libro) {
+        return service.save(libro);
     }
 
-    // TODO 
-    @PutMapping("path/{id}")
-    public String putMethodName(@PathVariable String id, @RequestBody String entity) {
-        return entity;
+    @PutMapping("libros/{id}")
+    public ResponseEntity<LibroDTO> update(@PathVariable Long id, @RequestBody LibroDTO libro) {
+        return ResponseEntity.ok(service.update(id, libro));
     }
 
     @DeleteMapping("libros/{id}")

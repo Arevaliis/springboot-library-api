@@ -3,8 +3,11 @@ package com.jose.biblioteca.service.libro;
 import java.util.List;
 import java.util.Optional;
 
+import javax.naming.NameNotFoundException;
+
 import org.springframework.stereotype.Service;
 
+import com.jose.biblioteca.exception.LibroNotFoundException;
 import com.jose.biblioteca.model.libro.Libro;
 import com.jose.biblioteca.model.libro.LibroDTO;
 import com.jose.biblioteca.repositories.IRepositoryProductos;
@@ -53,13 +56,21 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
     }
 
     @Override
-    public Optional<LibroDTO> update(LibroDTO entity) {
-        Libro libro = new Libro(null, entity.titulo(), entity.autor(), entity.paginas());
-        Libro libroGuardado = repository.save(libro);
+    public LibroDTO update(Long id, LibroDTO libroActualizado) {
+        Libro libroEncontrado = repository.findById(id).orElseThrow(() -> new LibroNotFoundException(id) );  
 
-        LibroDTO libroDTO = new LibroDTO( libroGuardado.getTitulo(), libroGuardado.getAutor(), libroGuardado.getPaginas());
+        libroEncontrado.setAutor( libroActualizado.autor());
+        libroEncontrado.setTitulo(libroActualizado.titulo());
+        libroEncontrado.setPaginas(libroActualizado.paginas());
 
-        return Optional.of(libroDTO);
+        Libro libroModificado = repository.update(libroEncontrado);
+
+        return new LibroDTO(
+            libroModificado.getTitulo(),
+            libroModificado.getAutor(),
+            libroModificado.getPaginas()
+        );
+
     }
 
     @Override

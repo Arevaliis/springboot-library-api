@@ -8,7 +8,7 @@ public interface IServiceProductos<T> {
     List<T> findAll();
     Optional<T> findById(Long id);
     T save(T entity);
-    Optional<T> update(T entity);
+    T update(Long id, T entity);
     boolean deleteById(Long id);
 
 }

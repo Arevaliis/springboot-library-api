@@ -33,17 +33,17 @@ public class LibroRepositoryImpl implements IRepositoryProductos<Libro> {
     @Override
     public List<Libro> findAll() {
         return libros.stream()
-                .map(Libro::clone)
-                .sorted(Comparator.comparing(Libro::getId))
-                .toList();
+                     .map(Libro::clone)
+                     .sorted(Comparator.comparing(Libro::getId))
+                     .toList();
     }
 
     @Override
     public Optional<Libro> findById(Long id) {
         return libros.stream()
-                .filter(l -> l.getId().equals(id))
-                .map(Libro::clone)
-                .findFirst();
+                     .filter(l -> l.getId().equals(id))
+                     .map(Libro::clone)
+                     .findFirst();
     }
 
     @Override
@@ -56,18 +56,19 @@ public class LibroRepositoryImpl implements IRepositoryProductos<Libro> {
     }
 
     @Override
-    public Optional<Libro> update(Libro libro) {
+    public Libro update(Libro libroActualizado) {
         return libros.stream()
-                .filter(l -> l.getId().equals(libro.getId()))
-                .findFirst()
-                .map(l -> {
+                     .filter(l -> l.getId().equals(libroActualizado.getId()))
+                     .findFirst()
+                     .map(l -> {
 
-                    l.setAutor(libro.getAutor());
-                    l.setTitulo(libro.getTitulo());
-                    l.setPaginas(libro.getPaginas());
+                        l.setAutor(libroActualizado.getAutor());
+                        l.setTitulo(libroActualizado.getTitulo());
+                        l.setPaginas(libroActualizado.getPaginas());
 
-                    return l.clone();
-                });
+                        return l.clone();
+                    }
+                ).orElse(libroActualizado);
     }
 
     @Override
