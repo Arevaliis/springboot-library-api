@@ -3,8 +3,6 @@ package com.jose.biblioteca.service.libro;
 import java.util.List;
 import java.util.Optional;
 
-import javax.naming.NameNotFoundException;
-
 import org.springframework.stereotype.Service;
 
 import com.jose.biblioteca.exception.LibroNotFoundException;
@@ -24,7 +22,8 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
 
     @Override
     public List<LibroDTO> findAll() {
-        return repository.findAll().stream()
+        return repository.findAll().orElseThrow(() -> new LibroNotFoundException())
+                                    .stream()
                                     .map(l -> {
                                         return new LibroDTO( 
                                             l.getTitulo(),
@@ -32,19 +31,19 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
                                             l.getPaginas()
                                             );
                                         }
-                                   ).toList();
+                                ).toList();
     }
 
     @Override
-    public Optional<LibroDTO> findById(Long id) {
+    public LibroDTO findById(Long id) {
         return repository.findById(id).map(l -> {
-                                        return new LibroDTO( 
-                                            l.getTitulo(),
-                                            l.getAutor(),
-                                            l.getPaginas()
-                                        );
-                                    }
-                                );
+                                                return new LibroDTO( 
+                                                    l.getTitulo(),
+                                                    l.getAutor(),
+                                                    l.getPaginas()
+                                                );
+                                            }
+                                    ).orElseThrow(() -> new LibroNotFoundException(id)); 
     }
 
     @Override

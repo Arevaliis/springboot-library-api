@@ -5,7 +5,7 @@ import java.util.Optional;
 
 public interface IRepositoryProductos<T> {
     
-    List<T> findAll();
+    Optional<List<T>> findAll();
     Optional<T> findById(Long id);
     T save(T entity);
     T update(T entity);

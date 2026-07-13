@@ -31,11 +31,12 @@ public class LibroRepositoryImpl implements IRepositoryProductos<Libro> {
     }
 
     @Override
-    public List<Libro> findAll() {
-        return libros.stream()
-                     .map(Libro::clone)
-                     .sorted(Comparator.comparing(Libro::getId))
-                     .toList();
+    public Optional<List<Libro>> findAll() {
+        return Optional.of(libros.stream()
+                                 .map(Libro::clone)
+                                 .sorted(Comparator.comparing(Libro::getId))
+                                 .toList()
+                                );    
     }
 
     @Override
