@@ -44,7 +44,7 @@ public class LibroController {
 
     @GetMapping("libros/{id}")
     public ResponseEntity<RespuestaApi<LibroDTO>> findById(@PathVariable Long id) {
-        
+
         LibroDTO libroDTO = service.findById(id);
 
         if (libroDTO == null) {
@@ -57,13 +57,19 @@ public class LibroController {
     }
 
     @PostMapping("libros")
-    public LibroDTO save(@RequestBody LibroDTO libro) {
-        return service.save(libro);
+    public ResponseEntity<RespuestaApi<LibroDTO>> save(@RequestBody LibroDTO libro) {
+        
+        LibroDTO libroDTO = service.save(libro);
+        return ResponseEntity.ok(
+                new RespuestaApi<>(true, "Nuevo libro creado", libroDTO));
     }
 
     @PutMapping("libros/{id}")
-    public ResponseEntity<LibroDTO> update(@PathVariable Long id, @RequestBody LibroDTO libro) {
-        return ResponseEntity.ok(service.update(id, libro));
+    public ResponseEntity<RespuestaApi<LibroDTO>> update(@PathVariable Long id, @RequestBody LibroDTO libro) {
+        
+        LibroDTO libroDTO = service.update(id, libro);
+        return ResponseEntity.ok(
+                new RespuestaApi<>(true, "Libro actualizado", libroDTO));
     }
 
     @DeleteMapping("libros/{id}")

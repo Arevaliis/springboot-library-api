@@ -47,9 +47,9 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
     }
 
     @Override
-    public LibroDTO save(LibroDTO entity) {
-        Libro libro = new Libro(null, entity.titulo(), entity.autor(), entity.paginas());
-        Libro libroGuardado = repository.save(libro);
+    public LibroDTO save(LibroDTO libro) {
+        Libro libroNuevo = new Libro(null, libro.titulo(), libro.autor(), libro.paginas());
+        Libro libroGuardado = repository.save(libroNuevo);
 
         return new LibroDTO( libroGuardado.getTitulo(), libroGuardado.getAutor(), libroGuardado.getPaginas());
     }
