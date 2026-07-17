@@ -21,7 +21,7 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
 
     @Override
     public List<LibroDTO> findAll() {
-        List<Libro> libros = repository.findAll().orElseThrow(LibroNotFoundException::new);
+        List<Libro> libros = repository.findAll();
 
         if (libros.isEmpty()) { throw new LibroNotFoundException(); }
 
@@ -36,15 +36,17 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
 
     @Override
     public LibroDTO findById(Long id) {
-        return repository.findById(id).map(l -> {
-                                                return new LibroDTO( 
-                                                    l.getTitulo(),
-                                                    l.getAutor(),
-                                                    l.getPaginas()
-                                                );
-                                            }
-                                    ).orElseThrow(() -> new LibroNotFoundException(id)); 
-    }
+        return repository.findById(id)
+                         .map(l -> {
+                                    return new LibroDTO( 
+                                        l.getTitulo(),
+                                        l.getAutor(),
+                                        l.getPaginas()
+                                    );
+                                }
+
+                        ).orElseThrow(() -> new LibroNotFoundException(id)); 
+}
 
     @Override
     public LibroDTO save(LibroDTO libro) {

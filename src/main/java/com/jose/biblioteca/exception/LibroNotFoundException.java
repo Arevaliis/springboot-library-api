@@ -7,6 +7,6 @@ public class LibroNotFoundException extends RuntimeException {
     }
 
     public LibroNotFoundException(){
-        super("No se han encontrado libros");
+        super("No se ha encontrado ningun libro");
     }
 }

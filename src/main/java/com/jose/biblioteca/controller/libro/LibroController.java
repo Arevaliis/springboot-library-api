@@ -31,33 +31,17 @@ public class LibroController {
 
     @GetMapping("libros")
     public ResponseEntity<RespuestaApi<List<LibroDTO>>> findAll() {
-        List<LibroDTO> libros;
-
-        try {
-
-            libros = service.findAll();
-
-            return ResponseEntity.ok(
-                    new RespuestaApi<>(true, "Libro Encontrado", libros));
-
-        } catch (LibroNotFoundException e) {
-            return ResponseEntity.ok(
-                new RespuestaApi<>(false, e.getMessage(), null));
-        }
+        List<LibroDTO> libros = service.findAll();
+        return ResponseEntity.ok( 
+            new RespuestaApi<>(true, "Libros Encontrado", libros));
     }
 
     @GetMapping("libros/{id}")
     public ResponseEntity<RespuestaApi<LibroDTO>> findById(@PathVariable Long id) {
 
-        try {
-            LibroDTO libroDTO = service.findById(id);
-            return ResponseEntity.ok(
-                    new RespuestaApi<>(true, "Libro Encontrado", libroDTO));
-
-        } catch (LibroNotFoundException e) {
-            return ResponseEntity.ok(
-                new RespuestaApi<>(false, e.getMessage(), null));
-        }           
+        LibroDTO libroDTO = service.findById(id);
+        return ResponseEntity.ok( 
+            new RespuestaApi<>(true, "Libro Encontrado", libroDTO));          
     }
 
     @PostMapping("libros")
