@@ -3,6 +3,8 @@ package com.jose.biblioteca.repositories;
 import java.util.List;
 import java.util.Optional;
 
+import com.jose.biblioteca.model.libro.Libro;
+
 public interface IRepositoryProductos<T> {
     
     List<T> findAll();
@@ -10,5 +12,6 @@ public interface IRepositoryProductos<T> {
     T save(T entity);
     T update(T entity);
     boolean deleteById(Long id);
+    Optional<Libro> findByTituloAndAutor(String titulo, String autor);
 
 }

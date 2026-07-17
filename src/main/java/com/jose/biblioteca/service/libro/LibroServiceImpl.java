@@ -1,9 +1,11 @@
 package com.jose.biblioteca.service.libro;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.jose.biblioteca.exception.LibroDuplicadoException;
 import com.jose.biblioteca.exception.LibroNotFoundException;
 import com.jose.biblioteca.model.libro.Libro;
 import com.jose.biblioteca.model.libro.LibroDTO;
@@ -28,9 +30,10 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
         return libros.stream()
                      .map(l -> 
                         new LibroDTO(
-                            l.getTitulo(),
-                            l.getAutor(),
-                            l.getPaginas()))
+                            l.getId(),
+                        l.getTitulo(),
+                         l.getAutor(),
+                       l.getPaginas()))
                      .toList();
         }
 
@@ -39,9 +42,10 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
         return repository.findById(id)
                          .map(l -> {
                                     return new LibroDTO( 
-                                        l.getTitulo(),
-                                        l.getAutor(),
-                                        l.getPaginas()
+                                        l.getId(),
+                                    l.getTitulo(),
+                                     l.getAutor(),
+                                   l.getPaginas()
                                     );
                                 }
 
@@ -50,10 +54,21 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
 
     @Override
     public LibroDTO save(LibroDTO libro) {
+
+        Optional<Libro> libroRegistrado = repository.findByTituloAndAutor(libro.titulo(), libro.autor());
+
+        if (libroRegistrado.isPresent()){
+            throw new LibroDuplicadoException(libro.autor(), libro.titulo());
+        }
+        
         Libro libroNuevo = new Libro(null, libro.titulo(), libro.autor(), libro.paginas());
         Libro libroGuardado = repository.save(libroNuevo);
 
-        return new LibroDTO( libroGuardado.getTitulo(), libroGuardado.getAutor(), libroGuardado.getPaginas());
+        return new LibroDTO(
+                            libroGuardado.getId(), 
+                        libroGuardado.getTitulo(), 
+                         libroGuardado.getAutor(), 
+                       libroGuardado.getPaginas());
     }
 
     @Override
@@ -67,9 +82,10 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
         Libro libroModificado = repository.update(libroEncontrado);
 
         return new LibroDTO(
-            libroModificado.getTitulo(),
-            libroModificado.getAutor(),
-            libroModificado.getPaginas()
+                            libroModificado.getId(),
+                        libroModificado.getTitulo(),
+                         libroModificado.getAutor(),
+                       libroModificado.getPaginas()
         );
 
     }

@@ -66,4 +66,11 @@ public class LibroRepositoryImpl implements IRepositoryProductos<Libro> {
         return libros.removeIf(l -> l.getId().equals(id));
     }
 
+    @Override
+    public Optional<Libro> findByTituloAndAutor(String titulo, String autor) {
+        return libros.stream()
+                     .filter(
+                        l -> l.getAutor().equalsIgnoreCase(autor.trim()) && l.getTitulo().equalsIgnoreCase(titulo.trim()))
+                     .findFirst();
+    }
 }
