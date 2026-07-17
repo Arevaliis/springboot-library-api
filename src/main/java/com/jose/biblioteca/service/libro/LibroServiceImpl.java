@@ -5,8 +5,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.jose.biblioteca.exception.LibroDuplicadoException;
-import com.jose.biblioteca.exception.LibroNotFoundException;
+import com.jose.biblioteca.exception.libro.LibroDuplicadoException;
+import com.jose.biblioteca.exception.libro.LibroNotFoundException;
 import com.jose.biblioteca.model.libro.Libro;
 import com.jose.biblioteca.model.libro.LibroDTO;
 import com.jose.biblioteca.repositories.IRepositoryProductos;

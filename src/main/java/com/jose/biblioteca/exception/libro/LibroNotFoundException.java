@@ -1,4 +1,4 @@
-package com.jose.biblioteca.exception;
+package com.jose.biblioteca.exception.libro;
 
 public class LibroNotFoundException extends RuntimeException {
 
