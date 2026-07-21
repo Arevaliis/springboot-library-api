@@ -54,6 +54,12 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
 
     @Override
     public LibroDTO save(LibroDTO libro) {
+        
+        if (libro.titulo() == null ||
+            libro.autor() == null ) {
+
+            throw new IllegalArgumentException("Faltan campos obligatorios");
+        }
 
         Optional<Libro> libroRegistrado = repository.findByTituloAndAutor(libro.titulo(), libro.autor());
 
@@ -72,8 +78,27 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
     }
 
     @Override
+
     public LibroDTO update(Long id, LibroDTO libroActualizado) {
-        Libro libroEncontrado = repository.findById(id).orElseThrow(() -> new LibroNotFoundException(id) );  
+
+        Libro libroEncontrado = repository.findById(id)
+                                          .orElseThrow(() -> new LibroNotFoundException(id) );  
+
+        if (libroActualizado.titulo() == null ||
+            libroActualizado.autor() == null ||
+            String.valueOf(libroActualizado.paginas()) == null) {
+
+            throw new IllegalArgumentException("Faltan campos obligatorios");
+        }
+
+        if (
+            libroActualizado.autor().equalsIgnoreCase(libroEncontrado.getAutor()) && 
+            libroActualizado.titulo().equalsIgnoreCase(libroEncontrado.getTitulo())){
+
+            throw new LibroDuplicadoException(libroActualizado.autor(), libroActualizado.titulo());
+        }
+
+        
 
         libroEncontrado.setAutor( libroActualizado.autor());
         libroEncontrado.setTitulo(libroActualizado.titulo());

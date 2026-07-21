@@ -10,6 +10,7 @@ import org.springframework.context.annotation.PropertySource;
 
 import com.jose.biblioteca.model.libro.Libro;
 
+
 @Configuration
 @PropertySource("classpath:config.properties")
 public class AppConfig {
