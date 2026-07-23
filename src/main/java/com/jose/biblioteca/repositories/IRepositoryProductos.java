@@ -12,6 +12,6 @@ public interface IRepositoryProductos<T> {
     T save(T entity);
     T update(T entity);
     boolean deleteById(Long id);
-    Optional<Libro> findByTituloAndAutor(String titulo, String autor);
+    Optional<Libro> findByIsbn(String isbn);
 
 }

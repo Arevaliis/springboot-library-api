@@ -1,10 +1,8 @@
 package com.jose.biblioteca.repositories.libro;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -13,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jose.biblioteca.model.libro.Libro;
 import com.jose.biblioteca.repositories.IRepositoryProductos;
@@ -23,10 +22,9 @@ import jakarta.annotation.PostConstruct;
 @Repository
 public class LibroRepositoryJSON implements IRepositoryProductos<Libro> {
 
-    private List<Libro> libros;
-
-    @Value("${data.json}")
+    @Value("${data.libros.json}")
     private String ruta;
+    private List<Libro> libros;
 
     public LibroRepositoryJSON() { }
 
@@ -36,11 +34,13 @@ public class LibroRepositoryJSON implements IRepositoryProductos<Libro> {
 
         try {
             libros = new ArrayList<>(
-                            Arrays.asList(
-                                    mapper.readValue(Paths.get(ruta).toFile(), Libro[].class)));
-        } catch (IOException e) {
-            libros = new ArrayList<>();
-        }
+                                mapper.readValue(
+                                    Paths.get(ruta).toFile(), 
+                                    new TypeReference<List<Libro>>() {}
+                        )
+                    );
+
+        } catch (IOException e) { libros = new ArrayList<>(); }
     }
 
     @Override
@@ -55,6 +55,7 @@ public class LibroRepositoryJSON implements IRepositoryProductos<Libro> {
     public Optional<Libro> findById(Long id) {
         return libros.stream()
                     .filter(l -> l.getId().equals(id))
+                    .map(Libro::clone)
                     .findFirst();
     }
 
@@ -79,15 +80,21 @@ public class LibroRepositoryJSON implements IRepositoryProductos<Libro> {
                     .filter(l -> l.getId().equals(libroActualizado.getId()))
                     .findFirst()
                     .map(l -> {
-                        l.setAutor(libroActualizado.getAutor());
+
                         l.setTitulo(libroActualizado.getTitulo());
-                        l.setPaginas(libroActualizado.getPaginas());
+                        l.setDisponible(libroActualizado.isDisponible());
+                        l.setAutor(libroActualizado.getAutor());
+                        l.setIsbn(libroActualizado.getIsbn());
+                        l.setnumeroPaginas(libroActualizado.getnumeroPaginas());
+                        l.setEditorial(libroActualizado.getEditorial());
+                        l.setGenero(libroActualizado.getGenero());
 
                         writeJson();
 
                         return l.clone();
-                     }
-                    ).orElse(libroActualizado);
+                     })
+                    
+                    .orElse(libroActualizado);
     }
 
     @Override
@@ -99,10 +106,9 @@ public class LibroRepositoryJSON implements IRepositoryProductos<Libro> {
     }
 
     @Override
-    public Optional<Libro> findByTituloAndAutor(String titulo, String autor) {
+    public Optional<Libro> findByIsbn(String isbn) {
         return libros.stream()
-                     .filter(
-                        l -> l.getAutor().equalsIgnoreCase(autor.trim()) && l.getTitulo().equalsIgnoreCase(titulo.trim()))
+                     .filter( l -> l.getIsbn().equalsIgnoreCase(isbn.trim()))
                      .findFirst();
     }
 

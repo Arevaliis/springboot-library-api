@@ -45,21 +45,24 @@ public class LibroRepositoryImpl implements IRepositoryProductos<Libro> {
     }
 
     @Override
-    public Libro update(Libro libroActualizado) {
-        return libros.stream()
-                     .filter(l -> l.getId().equals(libroActualizado.getId()))
-                     .findFirst()
-                     .map(l -> {
+public Libro update(Libro libroActualizado) {
+    return libros.stream()
+            .filter(l -> l.getId().equals(libroActualizado.getId()))
+            .findFirst()
+            .map(l -> {
 
-                        l.setAutor(libroActualizado.getAutor());
-                        l.setTitulo(libroActualizado.getTitulo());
-                        l.setPaginas(libroActualizado.getPaginas());
+                l.setTitulo(libroActualizado.getTitulo());
+                l.setDisponible(libroActualizado.isDisponible());
+                l.setAutor(libroActualizado.getAutor());
+                l.setIsbn(libroActualizado.getIsbn());
+                l.setnumeroPaginas(libroActualizado.getnumeroPaginas());
+                l.setEditorial(libroActualizado.getEditorial());
+                l.setGenero(libroActualizado.getGenero());
 
-                        return l.clone();
-                    }
-                    
-                ).orElse(libroActualizado);
-    }
+                return l.clone();
+            })
+            .orElse(libroActualizado);
+}
 
     @Override
     public boolean deleteById(Long id) {
@@ -67,10 +70,10 @@ public class LibroRepositoryImpl implements IRepositoryProductos<Libro> {
     }
 
     @Override
-    public Optional<Libro> findByTituloAndAutor(String titulo, String autor) {
+    public Optional<Libro> findByIsbn(String isbn) {
         return libros.stream()
                      .filter(
-                        l -> l.getAutor().equalsIgnoreCase(autor.trim()) && l.getTitulo().equalsIgnoreCase(titulo.trim()))
+                        l -> l.getIsbn().equalsIgnoreCase(isbn.trim()))
                      .findFirst();
     }
 }

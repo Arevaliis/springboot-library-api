@@ -17,101 +17,70 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
 
     private final IRepositoryProductos<Libro> repository;
 
-    public LibroServiceImpl(IRepositoryProductos<Libro>  repository) {
+    public LibroServiceImpl(IRepositoryProductos<Libro> repository) {
         this.repository = repository;
     }
 
     @Override
     public List<LibroDTO> findAll() {
-        List<Libro> libros = repository.findAll();
 
+        List<Libro> libros = repository.findAll();
         if (libros.isEmpty()) { throw new LibroNotFoundException(); }
 
         return libros.stream()
-                     .map(l -> 
-                        new LibroDTO(
-                            l.getId(),
-                        l.getTitulo(),
-                         l.getAutor(),
-                       l.getPaginas()))
-                     .toList();
-        }
+                    .map(libro -> buildLibroDTO(libro))
+                    .toList();
+    }
 
     @Override
     public LibroDTO findById(Long id) {
         return repository.findById(id)
-                         .map(l -> {
-                                    return new LibroDTO( 
-                                        l.getId(),
-                                    l.getTitulo(),
-                                     l.getAutor(),
-                                   l.getPaginas()
-                                    );
-                                }
-
-                        ).orElseThrow(() -> new LibroNotFoundException(id)); 
-}
-
-    @Override
-    public LibroDTO save(LibroDTO libro) {
-        
-        if (libro.titulo() == null ||
-            libro.autor() == null ) {
-
-            throw new IllegalArgumentException("Faltan campos obligatorios");
-        }
-
-        Optional<Libro> libroRegistrado = repository.findByTituloAndAutor(libro.titulo(), libro.autor());
-
-        if (libroRegistrado.isPresent()){
-            throw new LibroDuplicadoException(libro.autor(), libro.titulo());
-        }
-        
-        Libro libroNuevo = new Libro(null, libro.titulo(), libro.autor(), libro.paginas());
-        Libro libroGuardado = repository.save(libroNuevo);
-
-        return new LibroDTO(
-                            libroGuardado.getId(), 
-                        libroGuardado.getTitulo(), 
-                         libroGuardado.getAutor(), 
-                       libroGuardado.getPaginas());
+                        .map(libro -> buildLibroDTO(libro))
+                        .orElseThrow(() -> new LibroNotFoundException(id));
     }
 
     @Override
+    public LibroDTO save(LibroDTO libro) {
 
+        // TODO VALIDACIONES
+
+        Optional<Libro> libroRegistrado = repository.findByIsbn(libro.isbn());
+
+        if (libroRegistrado.isPresent()) {
+            throw new LibroDuplicadoException(libro.autor(), libro.titulo());
+        }
+
+        Libro libroNuevo = buildLibro(libro);
+        Libro libroGuardado = repository.save(libroNuevo);
+
+        return buildLibroDTO(libroGuardado);
+    }
+
+    @Override
     public LibroDTO update(Long id, LibroDTO libroActualizado) {
 
         Libro libroEncontrado = repository.findById(id)
-                                          .orElseThrow(() -> new LibroNotFoundException(id) );  
+                                          .orElseThrow(() -> new LibroNotFoundException(id));
 
-        if (libroActualizado.titulo() == null ||
-            libroActualizado.autor() == null ||
-            String.valueOf(libroActualizado.paginas()) == null) {
+        Optional<Libro> libroRegistrado = repository.findByIsbn(libroActualizado.isbn());
 
-            throw new IllegalArgumentException("Faltan campos obligatorios");
-        }
+        if (libroRegistrado.isPresent()) {
+            throw new LibroDuplicadoException(libroActualizado.isbn());
+        }   
 
-        if (
-            libroActualizado.autor().equalsIgnoreCase(libroEncontrado.getAutor()) && 
-            libroActualizado.titulo().equalsIgnoreCase(libroEncontrado.getTitulo())){
+        // TODO VALIDACIONES
 
-            throw new LibroDuplicadoException(libroActualizado.autor(), libroActualizado.titulo());
-        }
-
-        
-
-        libroEncontrado.setAutor( libroActualizado.autor());
         libroEncontrado.setTitulo(libroActualizado.titulo());
-        libroEncontrado.setPaginas(libroActualizado.paginas());
+        libroEncontrado.setDisponible(libroActualizado.disponible());
+        libroEncontrado.setAutor(libroActualizado.autor());
+        libroEncontrado.setIsbn(libroActualizado.isbn());
+        libroEncontrado.setnumeroPaginas(libroActualizado.numeroPaginas());
+        libroEncontrado.setEditorial(libroActualizado.editorial());
+        libroEncontrado.setGenero(libroActualizado.genero());
 
         Libro libroModificado = repository.update(libroEncontrado);
 
-        return new LibroDTO(
-                            libroModificado.getId(),
-                        libroModificado.getTitulo(),
-                         libroModificado.getAutor(),
-                       libroModificado.getPaginas()
-        );
+        return buildLibroDTO(libroModificado);
 
     }
 
@@ -119,5 +88,33 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
     public boolean deleteById(Long id) {
         return repository.deleteById(id);
     }
-    
+
+    private LibroDTO buildLibroDTO(Libro libro) {
+
+        return new LibroDTO(
+            libro.getId(),
+            libro.getTitulo(),
+            libro.isDisponible(),
+            libro.getAutor(),
+            libro.getIsbn(),
+            libro.getnumeroPaginas(),
+            libro.getEditorial(),
+            libro.getGenero()
+        );
+    }
+
+    private Libro buildLibro(LibroDTO libro) {
+
+        return new Libro(
+                libro.id(),
+                libro.titulo(),
+                libro.disponible(),
+                libro.autor(),
+                libro.isbn(),
+                libro.numeroPaginas(),
+                libro.editorial(),
+                libro.genero()
+        );
+    }
+
 }

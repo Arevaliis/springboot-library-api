@@ -6,4 +6,7 @@ public class LibroDuplicadoException extends RuntimeException {
         super("El libro " + titulo + " escrito por " + autor + " ya existe.");
     }
     
+    public LibroDuplicadoException(String isbn) {
+        super("El libro con el isbn " + isbn + " ya existe.");
+    }
 }

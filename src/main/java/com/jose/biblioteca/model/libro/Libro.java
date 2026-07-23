@@ -1,70 +1,78 @@
 package com.jose.biblioteca.model.libro;
 
-public class Libro implements Cloneable{
-    private Long id;
-    private String titulo;
+import com.jose.biblioteca.model.MaterialBiblioteca;
+
+public class Libro extends MaterialBiblioteca implements Cloneable {
     private String autor;
-    private int paginas;
-    
-    public Libro() {}
+    private String isbn;
+    private int numeroPaginas;
+    private String editorial;
+    private String genero;
 
-    public Libro(Long id, String titulo, String autor, int paginas) {
-        this.id = id;
-        this.titulo = titulo;
+    public Libro() { }
+
+    public Libro(Long id, String titulo, boolean disponible, String autor, String isbn, int numeroPaginas, String editorial, String genero) {
+        super(id, titulo, disponible);
         this.autor = autor;
-        this.paginas = paginas;
+        this.isbn = isbn;
+        this.numeroPaginas = numeroPaginas;
+        this.editorial = editorial;
+        this.genero = genero;
     }
 
-    public Long getId() { return id; }
-    public String getTitulo() { return titulo; }
-    public String getAutor() { return autor; }
-    public int getPaginas() { return paginas; }
-    
-    public void setTitulo(String titulo) { this.titulo = titulo; }
-    public void setAutor(String autor) { this.autor = autor; }
-    public void setPaginas(int paginas) { this.paginas = paginas; }
-    
-    public void setId(Long id) {
-        this.id = id;
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public int getnumeroPaginas() {
+        return numeroPaginas;
+    }
+
+    public void setnumeroPaginas(int numeroPaginas) {
+        this.numeroPaginas = numeroPaginas;
+    }
+
+    public String getEditorial() {
+        return editorial;
+    }
+
+    public void setEditorial(String editorial) {
+        this.editorial = editorial;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Libro other = (Libro) obj;
-        if (id == null) {
-            if (other.id != null)
-                return false;
-        } else if (!id.equals(other.id))
-            return false;
-        return true;
-    }
-
-    @Override
-    public Libro clone(){
-        try{
+    public Libro clone() {
+        try {
             return (Libro) super.clone();
-        } catch(CloneNotSupportedException e){
+        } catch (CloneNotSupportedException e) {
             throw new RuntimeException(e);
         }
     }
 
     @Override
     public String toString() {
-        return "Libro [id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", paginas=" + paginas + "]";
+        return "Libro [autor=" + autor + ", isbn=" + isbn + ", paginas=" + numeroPaginas + ", editorial=" + editorial
+                + ", genero=" + genero + "]";
     }
 
 }
