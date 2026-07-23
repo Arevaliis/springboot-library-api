@@ -11,6 +11,8 @@ import com.jose.biblioteca.model.RespuestaApi;
 import com.jose.biblioteca.model.revista.RevistaDTO;
 import com.jose.biblioteca.service.IServiceProductos;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RequestMapping("/")
 @RestController
@@ -28,6 +30,11 @@ public class RevistaController {
             new RespuestaApi<>(true, "Revistas Encontrdas", service.findAll())
         );
     }
-    
 
+    @GetMapping("revistas/{id}")
+    public ResponseEntity<RespuestaApi<RevistaDTO>> findById(@PathVariable Long id) {
+        return ResponseEntity.ok(
+            new RespuestaApi<>(true, "Revista Encontrda", service.findById(id))
+        );
+    } 
 }

@@ -50,7 +50,9 @@ public class RevistaRepositoryJSON implements IRepositoryProductos<Revista> {
 
     @Override
     public Optional<Revista> findById(Long id) {
-        return null;
+        return revistas.stream()
+                        .filter(revista -> revista.getId().equals(id))
+                        .findFirst();
     }
 
     @Override
