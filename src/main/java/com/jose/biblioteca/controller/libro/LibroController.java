@@ -3,9 +3,9 @@ package com.jose.biblioteca.controller.libro;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.jose.biblioteca.model.MensajeDTO;
 import com.jose.biblioteca.model.RespuestaApi;
 import com.jose.biblioteca.model.libro.LibroDTO;
-import com.jose.biblioteca.model.libro.MensajeDTO;
 import com.jose.biblioteca.service.IServiceProductos;
 
 import java.util.List;

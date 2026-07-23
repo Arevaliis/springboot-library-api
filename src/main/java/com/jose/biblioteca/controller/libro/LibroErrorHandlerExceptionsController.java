@@ -19,7 +19,7 @@ import com.jose.biblioteca.exception.libro.LibroNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestControllerAdvice
-public class ErrorHandlerExceptionsController {
+public class LibroErrorHandlerExceptionsController {
     
     @ExceptionHandler(LibroNotFoundException.class)
     public ResponseEntity<ProblemDetail> libroNotFoundException( Exception ex){

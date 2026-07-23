@@ -1,4 +1,4 @@
-package com.jose.biblioteca.model.libro;
+package com.jose.biblioteca.model;
 
 public class MensajeDTO {
     

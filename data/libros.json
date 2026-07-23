@@ -1,1 +1,102 @@
-[{"id":2,"titulo":"Don Quijote de la Mancha","autor":"Miguel de Cervantes","paginas":863},{"id":3,"titulo":"1984","autor":"George Orwell","paginas":328},{"id":4,"titulo":"La Biblioteca de la Medianoche","autor":"Matt Haig","paginas":380},{"id":5,"titulo":"La sombra del viento","autor":"Carlos Ruiz Zafón","paginas":576},{"id":6,"titulo":"Los pilares de la Tierra","autor":"Ken Follett","paginas":1039},{"id":7,"titulo":"El nombre del viento","autor":"Patrick Rothfuss","paginas":872},{"id":8,"titulo":"Fahrenheit 451","autor":"Ray Bradbury","paginas":249},{"id":9,"titulo":"Crónica de una muerte anunciada","autor":"Gabriel García Márquez","paginas":122},{"id":10,"titulo":"Rebelión en la granja","autor":"George Orwell","paginas":144},{"id":12,"titulo":"100000 dias de soledad","autor":"Marta Perez Perez","paginas":10000},{"id":13,"titulo":"1000000 dias de soledad","autor":"Marta Perez Perez","paginas":10000},{"id":14,"titulo":"10000000 dias de soledad","autor":"Marta Perez Perez","paginas":10000},{"id":15,"titulo":"La Biblioteca de la Medianoche","autor":"Matt Haig","paginas":380}]
+[
+  {
+    "id": 1,
+    "titulo": "El Hobbit",
+    "disponible": true,
+    "autor": "J. R. R. Tolkien",
+    "isbn": "9788445000651",
+    "numeroPaginas": 310,
+    "editorial": "Minotauro",
+    "genero": "Fantasía"
+  },
+  {
+    "id": 2,
+    "titulo": "1984",
+    "disponible": false,
+    "autor": "George Orwell",
+    "isbn": "9788423340998",
+    "numeroPaginas": 328,
+    "editorial": "Destino",
+    "genero": "Distopía"
+  },
+  {
+    "id": 3,
+    "titulo": "Dune",
+    "disponible": true,
+    "autor": "Frank Herbert",
+    "isbn": "9788497594252",
+    "numeroPaginas": 688,
+    "editorial": "Debolsillo",
+    "genero": "Ciencia ficción"
+  },
+  {
+    "id": 4,
+    "titulo": "La sombra del viento",
+    "disponible": true,
+    "autor": "Carlos Ruiz Zafón",
+    "isbn": "9788408172173",
+    "numeroPaginas": 576,
+    "editorial": "Planeta",
+    "genero": "Novela"
+  },
+  {
+    "id": 5,
+    "titulo": "Fahrenheit 451",
+    "disponible": true,
+    "autor": "Ray Bradbury",
+    "isbn": "9788445000668",
+    "numeroPaginas": 249,
+    "editorial": "Minotauro",
+    "genero": "Ciencia ficción"
+  },
+  {
+    "id": 6,
+    "titulo": "El nombre del viento",
+    "disponible": false,
+    "autor": "Patrick Rothfuss",
+    "isbn": "9788401352831",
+    "numeroPaginas": 872,
+    "editorial": "Plaza & Janés",
+    "genero": "Fantasía"
+  },
+  {
+    "id": 7,
+    "titulo": "Los pilares de la Tierra",
+    "disponible": true,
+    "autor": "Ken Follett",
+    "isbn": "9788401328515",
+    "numeroPaginas": 1039,
+    "editorial": "Debolsillo",
+    "genero": "Histórica"
+  },
+  {
+    "id": 8,
+    "titulo": "Rebelión en la granja",
+    "disponible": true,
+    "autor": "George Orwell",
+    "isbn": "9788499890956",
+    "numeroPaginas": 144,
+    "editorial": "Debolsillo",
+    "genero": "Sátira"
+  },
+  {
+    "id": 9,
+    "titulo": "Crónica de una muerte anunciada",
+    "disponible": true,
+    "autor": "Gabriel García Márquez",
+    "isbn": "9788497592432",
+    "numeroPaginas": 122,
+    "editorial": "Debolsillo",
+    "genero": "Realismo mágico"
+  },
+  {
+    "id": 10,
+    "titulo": "El psicoanalista",
+    "disponible": false,
+    "autor": "John Katzenbach",
+    "isbn": "9788498726584",
+    "numeroPaginas": 560,
+    "editorial": "Ediciones B",
+    "genero": "Suspense"
+  }
+]

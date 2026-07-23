@@ -17,24 +17,27 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jose.biblioteca.model.libro.Libro;
 import com.jose.biblioteca.repositories.IRepositoryProductos;
 
+import jakarta.annotation.PostConstruct;
+
 @Primary
 @Repository
 public class LibroRepositoryJSON implements IRepositoryProductos<Libro> {
 
     private List<Libro> libros;
-    private Path path;
 
-    public LibroRepositoryJSON(@Value("${data.json}") String ruta) {
+    @Value("${data.json}")
+    private String ruta;
 
-        this.path = Paths.get(ruta);
+    public LibroRepositoryJSON() { }
 
+    @PostConstruct
+    public void init(){
         ObjectMapper mapper = new ObjectMapper();
 
         try {
             libros = new ArrayList<>(
-                    Arrays.asList(
-                            mapper.readValue(path.toFile(), Libro[].class)));
-
+                            Arrays.asList(
+                                    mapper.readValue(Paths.get(ruta).toFile(), Libro[].class)));
         } catch (IOException e) {
             libros = new ArrayList<>();
         }
@@ -106,7 +109,7 @@ public class LibroRepositoryJSON implements IRepositoryProductos<Libro> {
     private void writeJson(){
         ObjectMapper mapper = new ObjectMapper();
 
-        try { mapper.writeValue(path.toFile(), libros); } 
+        try { mapper.writeValue(Paths.get(ruta).toFile(), libros); } 
         catch (IOException e) {}
     }
 }
