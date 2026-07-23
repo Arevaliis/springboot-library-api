@@ -3,7 +3,6 @@ package com.jose.biblioteca.controller.libro;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.jose.biblioteca.model.MensajeDTO;
 import com.jose.biblioteca.model.RespuestaApi;
 import com.jose.biblioteca.model.libro.LibroDTO;
 import com.jose.biblioteca.service.IServiceProductos;
@@ -60,15 +59,10 @@ public class LibroController {
     }
 
     @DeleteMapping("libros/{id}")
-    public MensajeDTO delete(@PathVariable Long id) {
-        MensajeDTO mensajeDTO = new MensajeDTO();
+    public ResponseEntity<RespuestaApi<LibroDTO>> delete(@PathVariable Long id) {
+        LibroDTO libroDTO = service.deleteById(id);
 
-        if (service.deleteById(id)) {
-            mensajeDTO.setMensaje("Libro eliminado");
-            return mensajeDTO;
-        }
-
-        mensajeDTO.setMensaje("Libro con id " + id + " no encontrado");
-        return mensajeDTO;
+        return ResponseEntity.ok(
+                new RespuestaApi<>(true, "Libro eliminado", libroDTO));
     }
 }

@@ -11,7 +11,7 @@ public interface IRepositoryProductos<T> {
     Optional<T> findById(Long id);
     T save(T entity);
     T update(T entity);
-    boolean deleteById(Long id);
+    Optional<Libro> deleteById(Long id);
     Optional<Libro> findByIsbn(String isbn);
 
 }

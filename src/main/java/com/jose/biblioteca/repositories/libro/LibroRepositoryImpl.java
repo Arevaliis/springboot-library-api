@@ -65,8 +65,17 @@ public Libro update(Libro libroActualizado) {
 }
 
     @Override
-    public boolean deleteById(Long id) {
-        return libros.removeIf(l -> l.getId().equals(id));
+    public Optional<Libro> deleteById(Long id) {
+        
+        Optional<Libro> eliminado = libros.stream()
+                                          .filter(l -> l.getId().equals(id))
+                                          .findFirst();
+
+        eliminado.ifPresent(libro -> {
+            libros.remove(libro);
+        });
+
+        return eliminado;
     }
 
     @Override

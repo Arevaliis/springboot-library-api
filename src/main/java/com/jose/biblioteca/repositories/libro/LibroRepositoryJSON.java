@@ -98,9 +98,16 @@ public class LibroRepositoryJSON implements IRepositoryProductos<Libro> {
     }
 
     @Override
-    public boolean deleteById(Long id) {
-        boolean eliminado = libros.removeIf(l -> l.getId().equals(id));
-        if (eliminado) writeJson();
+    public Optional<Libro> deleteById(Long id) {
+        
+        Optional<Libro> eliminado = libros.stream()
+                                          .filter(l -> l.getId().equals(id))
+                                          .findFirst();
+
+        eliminado.ifPresent(libro -> {
+            libros.remove(libro);
+            writeJson();
+        });
 
         return eliminado;
     }

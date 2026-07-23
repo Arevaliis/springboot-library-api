@@ -8,6 +8,6 @@ public interface IServiceProductos<T> {
     T findById(Long id);
     T save(T entity);
     T update(Long id, T entity);
-    boolean deleteById(Long id);
+    T deleteById(Long id);
 
 }
