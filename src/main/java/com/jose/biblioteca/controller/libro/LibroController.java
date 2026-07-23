@@ -9,6 +9,7 @@ import com.jose.biblioteca.service.IServiceProductos;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,7 @@ public class LibroController {
 
     private IServiceProductos<LibroDTO> service;
 
-    public LibroController(IServiceProductos<LibroDTO> service) {
+    public LibroController(@Qualifier("libroServiceImpl") IServiceProductos<LibroDTO> service) {
         this.service = service;
     }
 

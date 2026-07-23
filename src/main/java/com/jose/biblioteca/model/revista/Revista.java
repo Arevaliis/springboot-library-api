@@ -9,6 +9,8 @@ public class Revista extends MaterialBiblioteca implements Cloneable{
     private String editorial;
     private String categoria;
 
+    public Revista(){ }
+
     public Revista(Long id, String titulo, boolean disponible, int numeroEdicion, String periodicidad,
             String fechaPublicacion, String editorial, String categoria) {
         super(id, titulo, disponible);
@@ -60,7 +62,7 @@ public class Revista extends MaterialBiblioteca implements Cloneable{
     }
 
     @Override
-    protected Object clone()  {
+    public Revista clone()  {
         try {
             return (Revista) super.clone();
         } catch (CloneNotSupportedException e) {

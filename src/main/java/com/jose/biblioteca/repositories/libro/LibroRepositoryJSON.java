@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -18,8 +17,7 @@ import com.jose.biblioteca.repositories.IRepositoryProductos;
 
 import jakarta.annotation.PostConstruct;
 
-@Primary
-@Repository
+@Repository("libroRepositoryJSON")
 public class LibroRepositoryJSON implements IRepositoryProductos<Libro>, IRepositoryISBN {
 
     @Value("${data.libros.json}")

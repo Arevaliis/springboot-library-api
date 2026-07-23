@@ -3,6 +3,7 @@ package com.jose.biblioteca.service.libro;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.jose.biblioteca.exception.libro.LibroDuplicadoException;
@@ -13,13 +14,16 @@ import com.jose.biblioteca.repositories.IRepositoryProductos;
 import com.jose.biblioteca.repositories.libro.IRepositoryISBN;
 import com.jose.biblioteca.service.IServiceProductos;
 
-@Service
+@Service("libroServiceImpl")
 public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
 
     private final IRepositoryProductos<Libro> repository;
     private final IRepositoryISBN isbnRepository;
 
-    public LibroServiceImpl(IRepositoryProductos<Libro> repository, IRepositoryISBN isbnRepository) {
+    public LibroServiceImpl(
+        @Qualifier("libroRepositoryJSON") IRepositoryProductos<Libro> repository, 
+        @Qualifier("libroRepositoryJSON") IRepositoryISBN isbnRepository) {
+            
         this.repository = repository;
         this.isbnRepository = isbnRepository;
     }

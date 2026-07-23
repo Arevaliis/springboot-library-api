@@ -3,8 +3,6 @@ package com.jose.biblioteca.repositories;
 import java.util.List;
 import java.util.Optional;
 
-import com.jose.biblioteca.model.libro.Libro;
-
 public interface IRepositoryProductos<T> {
     
     List<T> findAll();
