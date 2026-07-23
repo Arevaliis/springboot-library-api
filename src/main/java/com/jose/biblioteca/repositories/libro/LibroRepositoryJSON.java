@@ -20,7 +20,7 @@ import jakarta.annotation.PostConstruct;
 
 @Primary
 @Repository
-public class LibroRepositoryJSON implements IRepositoryProductos<Libro> {
+public class LibroRepositoryJSON implements IRepositoryProductos<Libro>, IRepositoryISBN {
 
     @Value("${data.libros.json}")
     private String ruta;

@@ -10,7 +10,7 @@ import com.jose.biblioteca.model.libro.Libro;
 import com.jose.biblioteca.repositories.IRepositoryProductos;
 
 @Repository
-public class LibroRepositoryImpl implements IRepositoryProductos<Libro> {
+public class LibroRepositoryImpl implements IRepositoryProductos<Libro>, IRepositoryISBN {
 
     private List<Libro> libros;
 

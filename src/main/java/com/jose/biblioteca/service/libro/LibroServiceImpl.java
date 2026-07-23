@@ -10,15 +10,18 @@ import com.jose.biblioteca.exception.libro.LibroNotFoundException;
 import com.jose.biblioteca.model.libro.Libro;
 import com.jose.biblioteca.model.libro.LibroDTO;
 import com.jose.biblioteca.repositories.IRepositoryProductos;
+import com.jose.biblioteca.repositories.libro.IRepositoryISBN;
 import com.jose.biblioteca.service.IServiceProductos;
 
 @Service
 public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
 
     private final IRepositoryProductos<Libro> repository;
+    private final IRepositoryISBN isbnRepository;
 
-    public LibroServiceImpl(IRepositoryProductos<Libro> repository) {
+    public LibroServiceImpl(IRepositoryProductos<Libro> repository, IRepositoryISBN isbnRepository) {
         this.repository = repository;
+        this.isbnRepository = isbnRepository;
     }
 
     @Override
@@ -44,7 +47,7 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
 
         // TODO VALIDACIONES
 
-        Optional<Libro> libroRegistrado = repository.findByIsbn(libro.isbn());
+        Optional<Libro> libroRegistrado = isbnRepository.findByIsbn(libro.isbn());
 
         if (libroRegistrado.isPresent()) {
             throw new LibroDuplicadoException(libro.autor(), libro.titulo());
@@ -62,7 +65,7 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
         Libro libroEncontrado = repository.findById(id)
                                           .orElseThrow(() -> new LibroNotFoundException(id));
 
-        Optional<Libro> libroRegistrado = repository.findByIsbn(libroActualizado.isbn());
+        Optional<Libro> libroRegistrado = isbnRepository.findByIsbn(libroActualizado.isbn());
 
         if (libroRegistrado.isPresent()) {
             throw new LibroDuplicadoException(libroActualizado.isbn());
