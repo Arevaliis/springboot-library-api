@@ -93,7 +93,7 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
 
     @Override
     public LibroDTO deleteById(Long id) {
-        Libro libro = repository.findById(id)
+        Libro libro = repository.deleteById(id)
                                 .orElseThrow(() -> new LibroNotFoundException(id));
 
         return buildLibroDTO(libro);

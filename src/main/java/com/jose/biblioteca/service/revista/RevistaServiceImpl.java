@@ -68,7 +68,10 @@ public class RevistaServiceImpl implements IServiceProductos<RevistaDTO> {
 
     @Override
     public RevistaDTO deleteById(Long id) {
-        return null;
+        Revista revista = repository.deleteById(id)
+                                    .orElseThrow(()-> new RevistaNotFoundException(id));
+
+        return buildRevistaDTO(revista);
     }
     
     private RevistaDTO buildRevistaDTO(Revista revista) {

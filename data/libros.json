@@ -1,15 +1,5 @@
 [
     {
-        "id": 1,
-        "titulo": "El Hobbit",
-        "disponible": true,
-        "autor": "J. R. R. Tolkien",
-        "isbn": "9788445000651",
-        "numeroPaginas": 310,
-        "editorial": "Minotauro",
-        "genero": "Fantasía"
-    },
-    {
         "id": 2,
         "titulo": "1984",
         "disponible": false,

@@ -1,112 +1,102 @@
 [
-  {
-    "id": 1,
-    "titulo": "National Geographic",
-    "disponible": true,
-    "numeroEdicion": 345,
-    "periodicidad": "Mensual",
-    "fechaPublicacion": "2026-01-01",
-    "editorial": "National Geographic Partners",
-    "categoria": "Ciencia"
-  },
-  {
-    "id": 2,
-    "titulo": "Muy Interesante",
-    "disponible": true,
-    "numeroEdicion": 512,
-    "periodicidad": "Mensual",
-    "fechaPublicacion": "2026-02-01",
-    "editorial": "Zinet Media",
-    "categoria": "Divulgación"
-  },
-  {
-    "id": 3,
-    "titulo": "PC Actual",
-    "disponible": false,
-    "numeroEdicion": 278,
-    "periodicidad": "Mensual",
-    "fechaPublicacion": "2026-03-01",
-    "editorial": "Axel Springer",
-    "categoria": "Tecnología"
-  },
-  {
-    "id": 4,
-    "titulo": "Historia National Geographic",
-    "disponible": true,
-    "numeroEdicion": 189,
-    "periodicidad": "Mensual",
-    "fechaPublicacion": "2026-04-01",
-    "editorial": "National Geographic Partners",
-    "categoria": "Historia"
-  },
-  {
-    "id": 5,
-    "titulo": "Science",
-    "disponible": true,
-    "numeroEdicion": 1024,
-    "periodicidad": "Semanal",
-    "fechaPublicacion": "2026-05-15",
-    "editorial": "AAAS",
-    "categoria": "Investigación"
-  },
-  {
-    "id": 6,
-    "titulo": "Nature",
-    "disponible": false,
-    "numeroEdicion": 987,
-    "periodicidad": "Semanal",
-    "fechaPublicacion": "2026-06-12",
-    "editorial": "Springer Nature",
-    "categoria": "Ciencia"
-  },
-  {
-    "id": 7,
-    "titulo": "Forbes",
-    "disponible": true,
-    "numeroEdicion": 654,
-    "periodicidad": "Mensual",
-    "fechaPublicacion": "2026-07-01",
-    "editorial": "Forbes Media",
-    "categoria": "Economía"
-  },
-  {
-    "id": 8,
-    "titulo": "Hobby Consolas",
-    "disponible": true,
-    "numeroEdicion": 402,
-    "periodicidad": "Mensual",
-    "fechaPublicacion": "2026-08-01",
-    "editorial": "Axel Springer",
-    "categoria": "Videojuegos"
-  },
-  {
-    "id": 9,
-    "titulo": "Viajes National Geographic",
-    "disponible": true,
-    "numeroEdicion": 156,
-    "periodicidad": "Mensual",
-    "fechaPublicacion": "2026-09-01",
-    "editorial": "National Geographic Partners",
-    "categoria": "Viajes"
-  },
-  {
-    "id": 10,
-    "titulo": "Auto Bild",
-    "disponible": false,
-    "numeroEdicion": 733,
-    "periodicidad": "Semanal",
-    "fechaPublicacion": "2026-10-10",
-    "editorial": "Axel Springer",
-    "categoria": "Motor"
-  },
-  {
-    "id": 11,
-    "titulo": "National Geographic",
-    "disponible": true,
-    "numeroEdicion": 346,
-    "periodicidad": "Mensual",
-    "fechaPublicacion": "2026-01-01",
-    "editorial": "National Geographic Partners",
-    "categoria": "Ciencia"
-  }
+    {
+        "id": 2,
+        "titulo": "Muy Interesante",
+        "disponible": true,
+        "numeroEdicion": 512,
+        "periodicidad": "Mensual",
+        "fechaPublicacion": "2026-02-01",
+        "editorial": "Zinet Media",
+        "categoria": "Divulgación"
+    },
+    {
+        "id": 3,
+        "titulo": "PC Actual",
+        "disponible": false,
+        "numeroEdicion": 278,
+        "periodicidad": "Mensual",
+        "fechaPublicacion": "2026-03-01",
+        "editorial": "Axel Springer",
+        "categoria": "Tecnología"
+    },
+    {
+        "id": 4,
+        "titulo": "Historia National Geographic",
+        "disponible": true,
+        "numeroEdicion": 189,
+        "periodicidad": "Mensual",
+        "fechaPublicacion": "2026-04-01",
+        "editorial": "National Geographic Partners",
+        "categoria": "Historia"
+    },
+    {
+        "id": 5,
+        "titulo": "Science",
+        "disponible": true,
+        "numeroEdicion": 1024,
+        "periodicidad": "Semanal",
+        "fechaPublicacion": "2026-05-15",
+        "editorial": "AAAS",
+        "categoria": "Investigación"
+    },
+    {
+        "id": 6,
+        "titulo": "Nature",
+        "disponible": false,
+        "numeroEdicion": 987,
+        "periodicidad": "Semanal",
+        "fechaPublicacion": "2026-06-12",
+        "editorial": "Springer Nature",
+        "categoria": "Ciencia"
+    },
+    {
+        "id": 7,
+        "titulo": "Forbes",
+        "disponible": true,
+        "numeroEdicion": 654,
+        "periodicidad": "Mensual",
+        "fechaPublicacion": "2026-07-01",
+        "editorial": "Forbes Media",
+        "categoria": "Economía"
+    },
+    {
+        "id": 8,
+        "titulo": "Hobby Consolas",
+        "disponible": true,
+        "numeroEdicion": 402,
+        "periodicidad": "Mensual",
+        "fechaPublicacion": "2026-08-01",
+        "editorial": "Axel Springer",
+        "categoria": "Videojuegos"
+    },
+    {
+        "id": 9,
+        "titulo": "Viajes National Geographic",
+        "disponible": true,
+        "numeroEdicion": 156,
+        "periodicidad": "Mensual",
+        "fechaPublicacion": "2026-09-01",
+        "editorial": "National Geographic Partners",
+        "categoria": "Viajes"
+    },
+    {
+        "id": 10,
+        "titulo": "Auto Bild",
+        "disponible": false,
+        "numeroEdicion": 733,
+        "periodicidad": "Semanal",
+        "fechaPublicacion": "2026-10-10",
+        "editorial": "Axel Springer",
+        "categoria": "Motor"
+    },
+    {
+        "id": 11,
+        "titulo": "National Geographic",
+        "disponible": true,
+        "numeroEdicion": 346,
+        "periodicidad": "Mensual",
+        "fechaPublicacion": "2026-01-01",
+        "editorial": "National Geographic Partners",
+        "categoria": "Ciencia"
+    }
 ]

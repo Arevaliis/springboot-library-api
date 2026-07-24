@@ -77,7 +77,16 @@ public class RevistaRepositoryJSON implements IRepositoryProductos<Revista>, IRe
 
     @Override
     public Optional<Revista> deleteById(Long id) {
-        return null;
+        Optional<Revista> revista = revistas.stream()
+                                            .filter(r -> r.getId().equals(id))
+                                            .findFirst();
+        revista.ifPresent(r -> {
+                revistas.remove(r);
+                writeJson();
+            }
+        );
+
+        return revista;
     }
 
     @Override
