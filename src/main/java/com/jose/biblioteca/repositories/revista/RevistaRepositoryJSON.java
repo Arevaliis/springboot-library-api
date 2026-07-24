@@ -18,7 +18,7 @@ import com.jose.biblioteca.repositories.IRepositoryProductos;
 import jakarta.annotation.PostConstruct;
 
 @Repository("revistaRepositoryJSON")
-public class RevistaRepositoryJSON implements IRepositoryProductos<Revista> {
+public class RevistaRepositoryJSON implements IRepositoryProductos<Revista>, IRevistaRepository {
 
     @Value("${data.revistas.json}")
     private String ruta;
@@ -56,17 +56,44 @@ public class RevistaRepositoryJSON implements IRepositoryProductos<Revista> {
     }
 
     @Override
-    public Revista save(Revista entity) {
-        return null;
+    public Revista save(Revista revista) {
+        Long id = revistas.stream()
+                            .max(Comparator.comparing(Revista::getId))
+                            .map(Revista::getId)
+                            .orElse(0L) + 1L;
+        
+        revista.setId(id);
+        revistas.add(revista);
+        
+        writeJson();
+
+        return revista;
     }
 
     @Override
-    public Revista update(Revista entity) {
+    public Revista update(Revista revista) {
         return null;
     }
 
     @Override
     public Optional<Revista> deleteById(Long id) {
         return null;
+    }
+
+    @Override
+    public Optional<Revista> findByTituloEdicion(String titulo, int numeroEdicion) {
+        return revistas.stream()
+                       .filter(revista -> revista.getTitulo().equalsIgnoreCase(titulo.trim()) &&
+                                          revista.getNumeroEdicion() == numeroEdicion  )
+                       .findFirst();
     }    
+
+    private void writeJson(){
+        ObjectMapper mapper = new ObjectMapper();
+
+        try{
+            mapper.writeValue(Paths.get(ruta).toFile(), revistas );
+        
+        } catch (IOException e){}
+    }
 }

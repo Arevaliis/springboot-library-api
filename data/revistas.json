@@ -98,5 +98,15 @@
     "fechaPublicacion": "2026-10-10",
     "editorial": "Axel Springer",
     "categoria": "Motor"
+  },
+  {
+    "id": 11,
+    "titulo": "National Geographic",
+    "disponible": true,
+    "numeroEdicion": 346,
+    "periodicidad": "Mensual",
+    "fechaPublicacion": "2026-01-01",
+    "editorial": "National Geographic Partners",
+    "categoria": "Ciencia"
   }
 ]

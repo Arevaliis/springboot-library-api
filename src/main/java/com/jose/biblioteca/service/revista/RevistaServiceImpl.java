@@ -6,19 +6,26 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import com.jose.biblioteca.exception.revista.RevistaDuplicadaException;
 import com.jose.biblioteca.exception.revista.RevistaNotFoundException;
 import com.jose.biblioteca.model.revista.Revista;
 import com.jose.biblioteca.model.revista.RevistaDTO;
 import com.jose.biblioteca.repositories.IRepositoryProductos;
+import com.jose.biblioteca.repositories.revista.IRevistaRepository;
 import com.jose.biblioteca.service.IServiceProductos;
 
 @Service("revistaServiceImpl")
 public class RevistaServiceImpl implements IServiceProductos<RevistaDTO> {
 
     private IRepositoryProductos<Revista> repository;
+    private IRevistaRepository repositoryRevista;
 
-    public RevistaServiceImpl( @Qualifier("revistaRepositoryJSON") IRepositoryProductos<Revista> repository) {
+    public RevistaServiceImpl( 
+        @Qualifier("revistaRepositoryJSON") IRepositoryProductos<Revista> repository,
+        @Qualifier("revistaRepositoryJSON") IRevistaRepository repositoryRevista) {
+
         this.repository = repository;
+        this.repositoryRevista = repositoryRevista;
     }
 
     @Override
@@ -41,8 +48,17 @@ public class RevistaServiceImpl implements IServiceProductos<RevistaDTO> {
     }
 
     @Override
-    public RevistaDTO save(RevistaDTO entity) {
-        return null;
+    public RevistaDTO save(RevistaDTO revistaDTO) {
+
+        Optional<Revista> revistaNueva = repositoryRevista.findByTituloEdicion(revistaDTO.titulo(), revistaDTO.numeroEdicion());
+
+        if (revistaNueva.isPresent()){
+            throw new RevistaDuplicadaException();
+        }
+
+        Revista revistaCreada = repository.save(buildRevista(revistaDTO));
+
+        return buildRevistaDTO(revistaCreada);
     }
 
     @Override
