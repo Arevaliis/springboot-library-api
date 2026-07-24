@@ -52,9 +52,7 @@ public class RevistaServiceImpl implements IServiceProductos<RevistaDTO> {
 
         Optional<Revista> revistaNueva = repositoryRevista.findByTituloEdicion(revistaDTO.titulo(), revistaDTO.numeroEdicion());
 
-        if (revistaNueva.isPresent()){
-            throw new RevistaDuplicadaException();
-        }
+        if (revistaNueva.isPresent()){ throw new RevistaDuplicadaException(); }
 
         Revista revistaCreada = repository.save(buildRevista(revistaDTO));
 
@@ -62,8 +60,22 @@ public class RevistaServiceImpl implements IServiceProductos<RevistaDTO> {
     }
 
     @Override
-    public RevistaDTO update(Long id, RevistaDTO entity) {
-        return null;
+    public RevistaDTO update(Long id, RevistaDTO revistaDTO) {
+        Revista revistaDesactualizada = repository.findById(id)
+                                                  .orElseThrow(() -> new RevistaNotFoundException(id));
+
+        repositoryRevista.findByTituloEdicion(revistaDTO.titulo(), revistaDTO.numeroEdicion())
+                         .orElseThrow( () -> new RevistaDuplicadaException());
+
+        revistaDesactualizada.setTitulo(revistaDTO.titulo());
+        revistaDesactualizada.setDisponible(revistaDTO.disponible());
+        revistaDesactualizada.setNumeroEdicion(revistaDTO.numeroEdicion());
+        revistaDesactualizada.setPeriodicidad(revistaDTO.periodicidad());
+        revistaDesactualizada.setFechaPublicacion(revistaDTO.fechaPublicacion());
+        revistaDesactualizada.setEditorial(revistaDTO.editorial());
+        revistaDesactualizada.setCategoria(revistaDTO.categoria());
+
+        return buildRevistaDTO(repository.update(revistaDesactualizada).orElseThrow( () -> new RevistaNotFoundException() ));
     }
 
     @Override

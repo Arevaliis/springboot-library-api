@@ -71,8 +71,23 @@ public class RevistaRepositoryJSON implements IRepositoryProductos<Revista>, IRe
     }
 
     @Override
-    public Revista update(Revista revista) {
-        return null;
+    public Optional<Revista> update(Revista revistaActualizada) {
+        return revistas.stream()
+                        .filter(r -> r.getId().equals(revistaActualizada.getId()))
+                        .findFirst()
+                        .map(revista -> {
+                                revista.setTitulo(revistaActualizada.getTitulo());
+                                revista.setDisponible(revistaActualizada.isDisponible());
+                                revista.setNumeroEdicion(revistaActualizada.getNumeroEdicion());
+                                revista.setPeriodicidad(revistaActualizada.getPeriodicidad());
+                                revista.setFechaPublicacion(revistaActualizada.getFechaPublicacion());
+                                revista.setEditorial(revistaActualizada.getEditorial());
+                                revista.setCategoria(revistaActualizada.getCategoria());
+
+                                writeJson();
+
+                                return revista;
+                            });
     }
 
     @Override

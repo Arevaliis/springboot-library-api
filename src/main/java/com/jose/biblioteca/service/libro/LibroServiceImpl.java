@@ -69,11 +69,8 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
         Libro libroEncontrado = repository.findById(id)
                                           .orElseThrow(() -> new LibroNotFoundException(id));
 
-        Optional<Libro> libroRegistrado = isbnRepository.findByIsbn(libroActualizado.isbn());
-
-        if (libroRegistrado.isPresent()) {
-            throw new LibroDuplicadoException(libroActualizado.isbn());
-        }   
+        isbnRepository.findByIsbn(libroActualizado.isbn())
+                      .orElseThrow(() -> new LibroDuplicadoException(libroActualizado.isbn()));
 
         // TODO VALIDACIONES
 
@@ -85,9 +82,7 @@ public class LibroServiceImpl implements IServiceProductos<LibroDTO> {
         libroEncontrado.setEditorial(libroActualizado.editorial());
         libroEncontrado.setGenero(libroActualizado.genero());
 
-        Libro libroModificado = repository.update(libroEncontrado);
-
-        return buildLibroDTO(libroModificado);
+        return buildLibroDTO(repository.update(libroEncontrado).orElseThrow(() -> new LibroNotFoundException()));
 
     }
 

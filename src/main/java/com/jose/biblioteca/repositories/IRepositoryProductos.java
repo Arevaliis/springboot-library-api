@@ -8,6 +8,6 @@ public interface IRepositoryProductos<T> {
     List<T> findAll();
     Optional<T> findById(Long id);
     T save(T entity);
-    T update(T entity);
+    Optional<T> update(T entity);
     Optional<T> deleteById(Long id);
 }

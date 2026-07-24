@@ -45,7 +45,7 @@ public class LibroRepositoryImpl implements IRepositoryProductos<Libro>, IReposi
     }
 
     @Override
-public Libro update(Libro libroActualizado) {
+public Optional<Libro> update(Libro libroActualizado) {
     return libros.stream()
             .filter(l -> l.getId().equals(libroActualizado.getId()))
             .findFirst()
@@ -60,8 +60,7 @@ public Libro update(Libro libroActualizado) {
                 l.setGenero(libroActualizado.getGenero());
 
                 return l.clone();
-            })
-            .orElse(libroActualizado);
+            });
 }
 
     @Override

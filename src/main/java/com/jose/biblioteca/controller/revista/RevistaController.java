@@ -53,14 +53,16 @@ public class RevistaController {
     }
 
     @PutMapping("/{id}")
-    public String putMethodName(@PathVariable String id, @RequestBody String entity) {        
-        return entity;
+    public ResponseEntity<RespuestaApi<RevistaDTO>> update(@PathVariable Long id, @RequestBody RevistaDTO entity) {        
+        return ResponseEntity.ok(
+                        new RespuestaApi<>(true,"Revista Eliminada", service.update(id, entity))
+        );
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<RespuestaApi<RevistaDTO>> deleteById(@PathVariable Long id){
         return ResponseEntity.ok(
-                        new RespuestaApi(true,"Revista Eliminada", service.deleteById(id))
+                        new RespuestaApi<>(true,"Revista Eliminada", service.deleteById(id))
         );
     }
     
